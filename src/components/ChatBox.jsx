@@ -53,37 +53,40 @@ const ChatBox = () => {
         setLoading(false);
     }
     return (
-       <div style={styles.container}>
-      <h2>✈️ Flight Booking Assistant</h2>
+       <div className="container mt-5" style={{ maxWidth: "900px" }}>
+      <h2 className='text-center mb-3'>✈️ Flight Booking Assistant</h2>
 
-      <div style={styles.chatBox}>
+      <div className="border rounded p-3 mb-3 bg-light d-flex flex-column"
+        style={{ height: "400px", overflowY: "auto" }}>
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            style={{
-              ...styles.message,
-              alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
-              background: msg.role === "user" ? "#DCF8C6" : "#fff",
-            }}
+            className={`p-2 mb-2 rounded ${
+              msg.role === "user"
+                ? "align-self-end bg-success text-white"
+                : "align-self-start bg-white border"
+            }`}
+            style={{ maxWidth: "75%" }}
           >
             {msg.content}
           </div>
         ))}
 
         {loading && (
-          <div style={styles.loading}>AI is thinking...</div>
+          <div className="text-muted fst-italic">AI is thinking...</div>
         )}
       </div>
 
-      <div style={styles.inputBox}>
+      <div className='input-group'>
         <input
+          className="form-control"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask about flights or booking..."
-          style={styles.input}
+          
         />
 
-        <button onClick={sendMessage} style={styles.button}>
+        <button onClick={sendMessage} className="btn btn-secondary">
           Send
         </button>
       </div>
@@ -91,43 +94,6 @@ const ChatBox = () => {
     );
 };
 
-const styles = {
-  container: {
-    width: "1000px",
-    margin: "40px auto",
-    fontFamily: "Arial",
-  },
-  chatBox: {
-    height: "400px",
-    border: "1px solid #ccc",
-    padding: "10px",
-    display: "flex",
-    flexDirection: "column",
-    overflowY: "auto",
-    background: "#f9f9f9",
-  },
-  message: {
-    padding: "10px",
-    borderRadius: "10px",
-    margin: "5px",
-    maxWidth: "75%",
-  },
-  inputBox: {
-    display: "flex",
-    marginTop: "10px",
-  },
-  input: {
-    flex: 1,
-    padding: "10px",
-  },
-  button: {
-    padding: "10px 15px",
-    cursor: "pointer",
-  },
-  loading: {
-    fontStyle: "italic",
-    color: "gray",
-  },
-};
+
 
 export default ChatBox;
